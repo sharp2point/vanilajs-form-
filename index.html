@@ -29,6 +29,10 @@
       import { ProductList } from "./product_list.js";
 
       const productList = new ProductList(document.body);
+      ProductsDB.get().forEach((product) => {
+        productList.add(product);
+      });
+
       const newProductForm = document.querySelector(".data-form");
 
       newProductForm.addEventListener("submit", (e) => {
