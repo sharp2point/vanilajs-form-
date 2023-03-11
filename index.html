@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>List Product</title>
+  </head>
+  <body>
+    <form class="data-form">
+      <fieldset>
+        <legend>Данные продукта</legend>
+        <div class="input-container">
+          <label for="name-input">Название:</label>
+          <input id="name" name="name" class="name-input" type="text" />
+        </div>
+        <div class="input-container">
+          <label for="price-input">Цена:</label>
+          <input id="price" name="price" class="price-input" type="text" />
+        </div>
+      </fieldset>
+      <button class="send">Сохранить</button>
+    </form>
+
+    <script type="module">
+      import ProductsDB from "./productsDB.js";
+      import Product from "./product.js";
+      import { ProductList } from "./product_list.js";
+
+      const productList = new ProductList(document.body);
+      const newProductForm = document.querySelector(".data-form");
+
+      newProductForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const data = new FormData(newProductForm);
+        const product = new Product(data.get("name"), data.get("price"));
+
+        productList.add(product);
+        ProductsDB.add(product);
+        newProductForm.reset();
+      });
+    </script>
+  </body>
+</html>
